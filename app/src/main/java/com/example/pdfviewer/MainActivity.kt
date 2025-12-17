@@ -1,0 +1,34 @@
+package com.example.pdfviewer
+
+import android.os.Bundle
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import android.app.Activity  // 使用原生Activity
+import android.os.Build
+class MainActivity : Activity() {  // 改为继承Activity而不是AppCompatActivity
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val webView = WebView(this)
+        setContentView(webView)
+        val settings = webView.settings
+        settings.javaScriptEnabled = true
+
+        settings.allowFileAccess = true
+        settings.allowContentAccess = true
+        settings.domStorageEnabled = true
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            settings.allowFileAccessFromFileURLs = true
+            settings.allowUniversalAccessFromFileURLs = true
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            settings.allowFileAccess = true
+        }
+        webView.webViewClient = WebViewClient()
+
+        val pdfUrl = "file:///android_asset/pdfjs/web/viewer.html?file=file:///android_asset/main.pdf"
+        webView.loadUrl(pdfUrl)
+    }
+}
