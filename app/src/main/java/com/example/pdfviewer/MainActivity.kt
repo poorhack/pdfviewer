@@ -9,6 +9,15 @@ class MainActivity : Activity() {  // 改为继承Activity而不是AppCompatActi
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val defaultMap = URLConnection.getFileNameMap()
+        URLConnection.setFileNameMap(object : FileNameMap {
+            override fun getContentTypeFor(fileName: String?): String? {
+                if (fileName != null && fileName.lowercase(Locale.getDefault()).endsWith(".mjs")) {
+                    return "application/javascript"
+                }
+                return defaultMap?.getContentTypeFor(fileName)
+            }
+        })
         val webView = WebView(this)
         setContentView(webView)
         val settings = webView.settings
