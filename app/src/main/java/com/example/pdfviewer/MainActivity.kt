@@ -1,10 +1,14 @@
 package com.example.pdfviewer
 
+import android.app.Activity
+import android.os.Build
 import android.os.Bundle
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.app.Activity  // 使用原生Activity
-import android.os.Build
+import java.net.FileNameMap
+import java.net.URLConnection
+import java.util.Locale
+
 class MainActivity : Activity() {  // 改为继承Activity而不是AppCompatActivity
 
     override fun onCreate(savedInstanceState: Bundle?) {
